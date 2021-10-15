@@ -1,7 +1,7 @@
 import logging
+import os
 
 import twecs.aws.lambda_
-import twecs.aws.lambda_.secrets
 import twecs.wise
 
 logger = logging.getLogger(
@@ -18,10 +18,7 @@ def handler(
         **event,
     }
 
-    api_key = twecs.aws.lambda_.secrets.retrieve(
-        arn=configuration['WISE_API_KEY_SECRET_ARN'],
-    )
-    parameters['api_key'] = api_key
+    parameters['api_key'] = os.environ['WISE_API_KEY']
 
     parameters['base_url'] = configuration['WISE_API_BASE_URL']
 
